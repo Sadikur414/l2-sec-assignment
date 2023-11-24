@@ -3,7 +3,7 @@ import { Schema, model, connect } from 'mongoose';
 
 export type TUsername={
     firstName:string;
-    lastname:string
+    lastName:string
                       }
 
                 
@@ -15,7 +15,7 @@ export type TUsername={
 
 
    export type TUseraddress = {
-    streeT:string,
+    street:string,
     city:string,
     country:string
                              }
@@ -42,7 +42,10 @@ export type TUser = {
    hobbies: TUserhobbies,
 
    address: TUseraddress,
-  
-   orders: TUseroders
+   
+   imgUrl?: string,
+
+   orders: TUseroders,
+
 
 }
