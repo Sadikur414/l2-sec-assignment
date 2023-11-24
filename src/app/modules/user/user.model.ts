@@ -1,7 +1,33 @@
 import { Schema, model, connect } from 'mongoose';
-import { TUser, TUseroders } from './user.interface';
+import { TUser, TUseraddress, TUserhobbies, TUsername } from './user.interface';
 
+ const userNameSchema= new Schema<TUsername>({
+    
+        firstName: {
+           type:String,
+           required:true
+        },
+        lastName:{
+           type:String,
+           required:true
+        }
+ })  
 
+ const userAddressSchemma = new Schema<TUseraddress>(
+    {
+        street:{type:String},
+        city:{type:String},
+        country:{type:String}
+    }
+ )
+
+ const userHobbiesSchema= new Schema<TUserhobbies>(
+    {
+        whatplay:{type:String},
+        inLeisure:{type:String},
+        anyRiding:{type:String},
+    }
+ )
 
 
 const userSchema = new Schema<TUser>({
@@ -9,33 +35,16 @@ const userSchema = new Schema<TUser>({
     userName:{type:String , required:true},
     password: {type:String, required:true},
 
-    fullName: {
-         firstName: {
-            type:String,
-            required:true
-         },
-         lastName:{
-            type:String,
-            required:true
-         }
-    } ,
+    fullName: userNameSchema ,
 
     age:{type:Number, required:true},
     email:{type:String, required:true},
 
     isActive:{type:Boolean},
 
-    hobbies: {
-        whatplay:{type:String},
-        inLeisure:{type:String},
-        anyRiding:{type:String},
-    },
+    hobbies: userHobbiesSchema,
 
-    address: {
-        street:{type:String},
-        city:{type:String},
-        country:{type:String}
-    },
+    address: userAddressSchemma,
 
     imgUrl:{type:String},
 
@@ -48,6 +57,7 @@ const userSchema = new Schema<TUser>({
         }
     ]
 
+})   ;
 
+const User = model<TUser>('User', userSchema)
 
-})
