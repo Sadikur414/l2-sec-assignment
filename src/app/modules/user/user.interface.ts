@@ -21,15 +21,17 @@ export type TUsername={
                              }
 
 
-   export type TUseroders = [
-    {productName:string},
-    {price:number},
-    {quantity:number}
-   ]                          
+   export type TUseroders = 
+   {
+      productName:string,
+      price:number,
+      quantity:number
+   }
+                             
 
 
 export type TUser = {
-   id:string,
+   id:number,
 
    userName:string,
    password:string,
@@ -37,7 +39,7 @@ export type TUser = {
    fullName:TUsername,
    age:number,
    email:string,
-   isActive:true|false,
+   isActive:boolean,
    
    hobbies: TUserhobbies,
 
@@ -45,7 +47,7 @@ export type TUser = {
    
    imgUrl?: string,
 
-   orders: TUseroders,
+    orders: TUseroders[],
 
 
 }

@@ -9,8 +9,8 @@ app.use(express.json())
 app.use(cors())
 
 //application route
-  app.use('/api/users', UserRoutes )
-  
+  app.use('/', UserRoutes )
+
 
 app.get('/', (req: Request, res: Response) => {
   const a = 'Hellow world'
