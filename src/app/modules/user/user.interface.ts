@@ -46,8 +46,9 @@ export type TUser = {
    address: TUseraddress,
    
    imgUrl?: string,
+   isDeleted:boolean,
 
-    orders: TUseroders[],
+   orders: TUseroders[],
 
 
 }

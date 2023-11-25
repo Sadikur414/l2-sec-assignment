@@ -67,7 +67,7 @@ const userSchema = new Schema<TUser>({
 
     imgUrl:{type:String,trim:true},
 
-     orders: [
+       orders: [
         {
           productName: { type: String, required: true ,trim:true},
           price: { type: Number, required: true ,trim:true},
@@ -75,16 +75,42 @@ const userSchema = new Schema<TUser>({
         },
       ],
 
+      isDeleted: {type:Boolean , default:false} 
+
 })   ;
 
+   //Doccument middleware
 //pre save middleware
   userSchema.pre('save',async function(next){
         //hasing password then save in DB
      this.password =  await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds));
-     
      next();
-
   })
+  //post save middleware
+  userSchema.post('save', function(doc, next){
+         doc.password = '';
+    next()
+  })
+
+     //Query middleware
+     userSchema.pre('findOne', function(next){
+        this.find({isDeleted:{$ne:true}})
+
+        next()
+    })
+
+     userSchema.pre('find', function(next){
+         this.find({isDeleted:{$ne:true}})
+
+         next()
+     })
+
+     userSchema.pre('aggregate', function(next){
+         this.pipeline().unshift({$match:{isDeleted:{$ne:true} }});
+
+         next()
+     })
+
 
 
 

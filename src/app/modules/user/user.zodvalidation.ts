@@ -36,7 +36,8 @@ export const UserValidationSchema = z.object({
   hobbies: UserHobbiesValidationSchema,
   address: UserAddressValidationSchema,
   imgUrl: z.string().optional(),
-orders: z.array(UserodersSchema),
+  orders: z.array(UserodersSchema),
+  isDeleted:z.boolean(),
 });
 
 
