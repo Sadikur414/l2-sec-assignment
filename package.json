@@ -2,8 +2,8 @@
   "name": "assignment-2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "build": "tsc",
     "lint:fix": "npx eslint src --fix",
     "lint": "eslint src --ignore-path .eslintignore --ext .ts",
