@@ -39,16 +39,13 @@ const getAllUsers = async(req:Request,res:Response) => {
         data:result
     });
     }
-    catch(err){
+    catch(err:any){
         res.status(500).json({
             success:false,
-            massage:"Something went wrong",
-            error: {
-                code:404,
-                description:"data have not found",
-            }
+            message: err.message,
+            error:err
         })
-       }
+    }
    
 }
 
@@ -60,7 +57,7 @@ const getSingleUser = async(req:Request,res:Response) => {
       res.status(200).json({
         success:true,
         massage:"User is Retriev successfully",
-        data:result
+         data:result
     });
     }
     catch(err:any){
@@ -77,11 +74,13 @@ const getSingleUser = async(req:Request,res:Response) => {
 const deleteUser = async(req:Request,res:Response) => {
     try{
         const {userId} = req.params;
-      const result = await UserServices.deleteUserFromDb(userId);
-      res.status(200).json({
+
+         const result = await UserServices.deleteUserfromDB(userId);
+        
+         res.status(200).json({
         success:true,
         massage:"User is deleted successfully",
-        data:result
+         data:result
     });
     }
     catch(err:any){
@@ -95,11 +94,11 @@ const deleteUser = async(req:Request,res:Response) => {
 
 
 
+
 export const UserController ={
     createUser,
     getAllUsers,
     getSingleUser,
-    deleteUser
-
+     deleteUser
 
 }

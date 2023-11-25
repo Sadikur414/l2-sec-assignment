@@ -47,11 +47,8 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catch (err) {
         res.status(500).json({
             success: false,
-            massage: "Something went wrong",
-            error: {
-                code: 404,
-                description: "data have not found",
-            }
+            message: err.message,
+            error: err
         });
     }
 });
@@ -76,7 +73,7 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        const result = yield user_service_1.UserServices.deleteUserFromDb(userId);
+        const result = yield user_service_1.UserServices.deleteUserfromDB(userId);
         res.status(200).json({
             success: true,
             massage: "User is deleted successfully",

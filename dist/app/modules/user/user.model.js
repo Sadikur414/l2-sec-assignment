@@ -58,7 +58,7 @@ const userSchema = new mongoose_1.Schema({
     password: { type: String, required: true, maxlength: [15, "password can not more then 15 charecter"] },
     fullName: userNameSchema,
     age: { type: Number, required: true, trim: true },
-    email: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, trim: true },
     isActive: { type: Boolean },
     hobbies: userHobbiesSchema,
     address: userAddressSchemma,
@@ -73,7 +73,7 @@ const userSchema = new mongoose_1.Schema({
     isDeleted: { type: Boolean, default: false }
 });
 //Doccument middleware
-//pre save middleware
+//  pre save middleware
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         //hasing password then save in DB
@@ -86,17 +86,13 @@ userSchema.post('save', function (doc, next) {
     doc.password = '';
     next();
 });
-//Query middleware
-userSchema.pre('findOne', function (next) {
-    this.find({ isDeleted: { $ne: true } });
-    next();
-});
+//Quary middleware
 userSchema.pre('find', function (next) {
     this.find({ isDeleted: { $ne: true } });
     next();
 });
-userSchema.pre('aggregate', function (next) {
-    this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+userSchema.pre('findOne', function (next) {
+    this.find({ isDeleted: { $ne: true } });
     next();
 });
 exports.UserModel = (0, mongoose_1.model)('User', userSchema);

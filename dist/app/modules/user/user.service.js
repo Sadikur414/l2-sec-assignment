@@ -20,13 +20,13 @@ const getAllUserFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const getSingleUserFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    //const result = await UserModel.findOne({id});
-    const result = yield user_model_1.UserModel.aggregate([
-        { $match: { id: id } }
-    ]);
+    const result = yield user_model_1.UserModel.findOne({ id });
+    //    const result = await UserModel.aggregate([
+    //     {$match:{id:id}}
+    //    ]) ;
     return result;
 });
-const deleteUserFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteUserfromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.UserModel.updateOne({ id }, { isDeleted: true });
     return result;
 });
@@ -34,5 +34,5 @@ exports.UserServices = {
     createUserIntoDB,
     getAllUserFromDb,
     getSingleUserFromDb,
-    deleteUserFromDb
+    deleteUserfromDB
 };

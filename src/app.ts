@@ -13,7 +13,7 @@ app.use(cors())
 
 
 app.get('/', (req: Request, res: Response) => {
-  const a = 'Hellow world'
+  const a = ' Welcome to my home  '
 
   res.send(a)
 })

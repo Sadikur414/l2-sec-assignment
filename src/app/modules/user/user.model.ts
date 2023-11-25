@@ -57,7 +57,7 @@ const userSchema = new Schema<TUser>({
     fullName: userNameSchema ,
 
     age:{type:Number, required:true,trim:true},
-    email:{type:String, required:true,trim:true},
+    email:{type:String, required:true, unique:true,trim:true},
 
     isActive:{type:Boolean},
 
@@ -80,38 +80,34 @@ const userSchema = new Schema<TUser>({
 })   ;
 
    //Doccument middleware
-//pre save middleware
+  //  pre save middleware
   userSchema.pre('save',async function(next){
         //hasing password then save in DB
      this.password =  await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds));
      next();
   })
+
   //post save middleware
   userSchema.post('save', function(doc, next){
          doc.password = '';
-    next()
+         next();
   })
 
-     //Query middleware
-     userSchema.pre('findOne', function(next){
-        this.find({isDeleted:{$ne:true}})
-
-        next()
-    })
-
-     userSchema.pre('find', function(next){
-         this.find({isDeleted:{$ne:true}})
-
-         next()
-     })
-
-     userSchema.pre('aggregate', function(next){
-         this.pipeline().unshift({$match:{isDeleted:{$ne:true} }});
-
-         next()
-     })
+//Quary middleware
+userSchema.pre('find', function(next){
+      
+   this.find({isDeleted: {$ne:true}})
+  
+  next()
+})
 
 
+userSchema.pre('findOne', function(next){
+      
+   this.find({isDeleted: {$ne:true}})
+  
+  next()
+})
 
 
 export const UserModel = model<TUser>('User', userSchema)

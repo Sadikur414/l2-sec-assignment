@@ -13,7 +13,7 @@ app.use((0, cors_1.default)());
 //application route
 app.use('/', user_route_1.UserRoutes);
 app.get('/', (req, res) => {
-    const a = 'Hellow world';
+    const a = ' Welcome to my home  ';
     res.send(a);
 });
 exports.default = app;
